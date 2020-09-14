@@ -1,7 +1,6 @@
 var constants = {
     DB_DATABASE: "",
     DB_HOST: "",
-    // DB_HOST: "wecare-production.cpwtzppammuy.us-east-1.rds.amazonaws.com",
     DB_USER: "",
     DB_PASSWORD: "",
 
