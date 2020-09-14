@@ -8,7 +8,8 @@ router.get('/', async (req, res) => {
 		let result = await client.getUserDetail(req.query);
 		res.send(result);
 	} catch (error) {
-		throw error;
+		console.log(error);
+		//throw error;
 	}
 });
 

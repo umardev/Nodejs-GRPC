@@ -29,45 +29,66 @@ function sayHello(call, callback) {
 }
  
 function getDetails(call, callback) {
-    //console.log(conn);
-    let response_result ;
-    employees.forEach(element=>{
-        if (call.request.id==element.id){
-            response_result = element;
-        }
-    });
+
+    let response_result = {
+        'id':'',
+        'name':'',
+        'email':'',
+        'invoices':[],
+        'message': '',
+        'status': '',
+    } ;
+
     let invoices =[];
-    let qry = `select id,email,name from users where id=${call.request.id}`;
+    let user_id = call.request.id;
+
+    let qry = `select id,email,name from users where id=${user_id}`;
     conn.query(qry, (err, result) => {
         if (err) {
-            console.log(err);
-        } else {
-            response_result = result[0];
-
-            let qry2 = `select id, price as amount from product limit 3`;
-            conn2.query(qry2, (err, result2) =>{
-                if(err){
-                    console.log(err);
-                }else{
-                    invoices = result2;
-                    console.log(result2);
+            response_result['status']=0;
+            response_result['message']=err.message;
+            callback(
+                null,
+                {
+                    message: response_result
                 }
+            );
+        } else {
+            if (result.length){
+                response_result = result[0];
+                response_result['status'] =1;
+                response_result['message'] ='Done';
 
-                response_result['list'] = invoices;
+                let qry2 = `select id,amount,status from invoices where user_id = ${user_id}`;
+                conn2.query(qry2, (err, result2) => {
+                    if (err) { 
+                        console.log(err);
+                    } else {
+                        invoices = result2;
+                    }
 
-                callback(
-                    null,
+                    response_result['invoices'] = invoices;
+
+                    callback(
+                        null,
+                        {
+                            message: response_result
+                        }
+                    );
+                });
+            }else{
+                console.log('Here');
+                response_result['status']=0;
+                response_result['message']='NO record found';
+                callback( 
+                    null, 
                     {
                         message: response_result
                     }
                 );
-
-            });
+            }
         }
     });
-    // console.log(query);
-
-    
 }
 
 var server = new grpc.Server();

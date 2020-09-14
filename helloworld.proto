@@ -28,10 +28,13 @@ message EmployeeDetails {
     int32 id = 1;
     string email = 2;
     string name = 3; 
-    repeated invoices list = 4;
+    repeated invoices invoices = 4;
+    int32 status =5;
+    string message =6;
 }
 
 message invoices {
     int32 id =1;
     int32 amount =2;
+    string status = 3;
 }
