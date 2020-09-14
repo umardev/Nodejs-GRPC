@@ -63,7 +63,7 @@ function getDetails(call, callback) {
                 conn2.query(qry2, (err, result2) => {
                     if (err) { 
                         console.log(err);
-                    } else {
+                    } else { 
                         invoices = result2;
                     }
 

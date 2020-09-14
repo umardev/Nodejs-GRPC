@@ -26,7 +26,7 @@ message EmployeeResponse{
 }
 message EmployeeDetails {
     int32 id = 1;
-    string email = 2;
+    string email = 2; 
     string name = 3; 
     repeated invoices invoices = 4;
     int32 status =5;
