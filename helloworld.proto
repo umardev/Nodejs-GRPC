@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package helloworld;
+
+service Greeter {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply) {}
+
+  rpc getDetails (EmployeeRequest) returns (EmployeeResponse) {}
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloReply {
+  string message = 1;
+} 
+
+message EmployeeRequest {
+    int32 id = 1;
+}
+
+message EmployeeResponse{
+    EmployeeDetails message = 1;
+}
+message EmployeeDetails {
+    int32 id = 1;
+    string email = 2;
+    string name = 3; 
+    repeated invoices list = 4;
+}
+
+message invoices {
+    int32 id =1;
+    int32 amount =2;
+}
